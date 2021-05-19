@@ -6,6 +6,7 @@ from HomePage import HomePage
 import constants
 
 
+
 class App(tkt.ThemedTk):
     def __init__(self):
         tkt.ThemedTk.__init__(self)

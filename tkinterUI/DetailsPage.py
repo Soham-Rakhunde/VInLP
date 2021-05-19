@@ -57,7 +57,9 @@ class DetailsPage(Toplevel):
         # plate photo
         self.platePIL = Image.open(io.BytesIO(self.thisEntry[7]))
         plate = ImageTk.PhotoImage(self.platePIL)
-        self.plateLabel = Label(infoFrame, image=plate, anchor='s')
+        self.plateLabel = Label(infoFrame, anchor='s')
+        self.plateLabel.image = plate
+        self.plateLabel.configure(image=plate)
 
         numberLabel = Label(infoFrame, text=f'{self.thisEntry[1]}', padx=5, pady=5, font=("Helvetica", 25), bg='gray70')
         nameLabel = Label(infoFrame, text=f'Vehicle : {self.thisEntry[3]}', padx=5, pady=5, font=("Helvetica", 15))

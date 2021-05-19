@@ -9,6 +9,7 @@ import cv2
 import pytesseract
 from datetime import datetime
 from errorCode import errorCodes
+import threading
 
 
 class Scraper:
@@ -24,7 +25,7 @@ class Scraper:
         isStop = False
 
         options = EdgeOptions()
-        options.use_chromium = True
+        # options.use_chromium = True
         options.add_argument("--headless")
         options.add_argument("disable-gpu")
         options.add_argument("--window-size=1920,1200")
@@ -141,4 +142,13 @@ class Scraper:
         return text[:5]
 
 
-a = Scraper()
+t1 = threading.Thread(target=Scraper, args=('MH14DT2662'))
+t2 = threading.Thread(target=Scraper, args=('MH14DT2662'))
+t3 = threading.Thread(target=Scraper, args=('MH14DT2662'))
+t4 = threading.Thread(target=Scraper, args=('MH14DT2662'))
+t5 = threading.Thread(target=Scraper, args=('MH14DT2662'))
+t6 = threading.Thread(target=Scraper, args=('MH14DT2662'))
+t7 = threading.Thread(target=Scraper, args=('MH14DT2662'))
+# a = Scraper()
+t1.start()
+t2.start()
