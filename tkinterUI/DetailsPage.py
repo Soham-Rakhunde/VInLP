@@ -56,6 +56,9 @@ class DetailsPage(Toplevel):
 
         # plate photo
         self.platePIL = Image.open(io.BytesIO(self.thisEntry[7]))
+        photowidth, photoheight = self.platePIL.size
+        aspectr = photowidth / photoheight
+        self.platePIL = self.platePIL.resize((547, int(547 / aspectr)), Image.ANTIALIAS)
         plate = ImageTk.PhotoImage(self.platePIL)
         self.plateLabel = Label(infoFrame, anchor='s')
         self.plateLabel.image = plate

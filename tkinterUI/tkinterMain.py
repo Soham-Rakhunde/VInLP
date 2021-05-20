@@ -1,10 +1,12 @@
+import os
 from tkinter import *
+import cv2
+
 from ttkthemes import themed_tk as tkt
 from historyPage import HistoryPage
 from modifiedClass import HoverButton
 from HomePage import HomePage
 import constants
-
 
 
 class App(tkt.ThemedTk):
@@ -19,11 +21,15 @@ class App(tkt.ThemedTk):
         self._frame = None
         self.switch_frame(frame_class=HomePage)
 
+
+
+
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
 
         # eventloops
         self.mainloop()
+
 
     def side_bar(self):
         optionFrame = Frame(self, bg=constants.colors['sidebar']['bg'], width=15)
@@ -65,3 +71,10 @@ class App(tkt.ThemedTk):
 
 if __name__ == "__main__":
     root = App()
+    # cwd = os.getcwd()
+    # parDir = cwd.replace('tkinterUI', 'Resources\\')
+    # captchaImg = cv2.imread(f'{parDir}captcha.png')
+    # b0 = cv2.imencode(img=captchaImg,ext='.png')
+    #
+    # with open(f'{parDir}c2.png', 'wb') as file:
+    #     file.write(b0)

@@ -44,7 +44,7 @@ def image_to_bin():
     cwd = os.getcwd()
     with open(f'{cwd}\\Resources\\img.png', 'rb') as file:
         binary0 = file.read()
-    with open(f'{cwd}\\Resources\\img_1.png', 'rb') as file:
+    with open(f'{cwd}\\Resources\\IndImg.jfif', 'rb') as file:
         binary1 = file.read()
     return binary0, binary1
 
@@ -60,7 +60,7 @@ def bin_to_image(binary):
 
 
 # create()
-# b0, b1 = image_to_bin()
+b0, b1 = image_to_bin()
 # for i in range(20):
 #     insert(
 #         numPlate='MH14DT2661',
