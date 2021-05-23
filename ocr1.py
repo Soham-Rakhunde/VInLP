@@ -2,25 +2,18 @@ import cv2
 import numpy as np
 import pytesseract
 
-# THESE are System Depended Paths
-from dataClass import DataClass
-
 
 class Rekognition:
-    def __init__(self):
-        self.dataObj = DataClass()
-
+    def __init__(self, data):
+        self.dataObj = data
         pytesseract.pytesseract.tesseract_cmd = "D:\Software\Programming\Teserract_OCR\\tesseract.exe"
-        # path = "C:\\Users\\soham\\PycharmProjects\\pythonProject\\Resources\\IndImg.jfif"
-        path = "C:\\Users\\soham\\PycharmProjects\\pythonProject\\Resources\\IndImg.jfif"
-        # path = "C:\\Users\\soham\\PycharmProjects\\pythonProject\\Resources\\indimg6.jpeg"
-        self.img = cv2.imread(path)
+        path = "C:\\Users\\soham\\PycharmProjects\\pythonProject\\Resources\\indimg6.jpeg"
+        self.dataObj.plateImage = cv2.imread(path)
         self.dataObj.numPlate = self.detectLicense()
         print(self.dataObj.numPlate)
 
-
     def showOriginal(self):
-        cv2.imshow("Original", self.img)
+        cv2.imshow("Original", self.dataObj.plateImage)
         cv2.waitKey(0)
 
     def show(self, img, name=""):
@@ -28,7 +21,7 @@ class Rekognition:
         cv2.waitKey(0)
 
     def process_Image(self):
-        img = cv2.resize(self.img, (440, 160))
+        img = cv2.resize(self.dataObj.plateImage, (440, 160))
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
         # self.show(thresh,"Threshold")
@@ -74,4 +67,4 @@ class Rekognition:
     def detectLicense(self):
         res = self.process_Image()
         # self.show(res,"Masked-Characters")
-        return pytesseract.image_to_string(res).replace(" ","")
+        return pytesseract.image_to_string(res).replace(" ", "")

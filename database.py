@@ -20,7 +20,9 @@ def create():
 
 def insert(numPlate, name, address, photo, time, errcode, platePic):
     cwd = os.getcwd()
-    db = sqlite3.connect(f'{cwd}\\realtest.db')
+    parDir = cwd.replace('tkinterUI', '')
+    parDir = parDir.replace('\\', '/')
+    db = sqlite3.connect(f'{parDir}realtest.db')
     c = db.cursor()
     c.execute(
         f"INSERT INTO realtest VALUES ('{numPlate}','{time}','{name}','{address}',{errcode},?,?)",
@@ -31,6 +33,7 @@ def insert(numPlate, name, address, photo, time, errcode, platePic):
 
 def getDb():
     cwd = os.getcwd()
+    print(cwd)
     db = sqlite3.connect(f'{cwd}\\realtest.db')
     c = db.cursor()
     c.execute("SELECT rowid,* FROM realtest")
@@ -40,6 +43,7 @@ def getDb():
     return list
 
 
+# deprecated
 def image_to_bin():
     cwd = os.getcwd()
     with open(f'{cwd}\\Resources\\img.png', 'rb') as file:
@@ -47,6 +51,7 @@ def image_to_bin():
     with open(f'{cwd}\\Resources\\IndImg.jfif', 'rb') as file:
         binary1 = file.read()
     return binary0, binary1
+
 
 # deprecated
 def bin_to_image(binary):
@@ -58,9 +63,8 @@ def bin_to_image(binary):
 
     # print(errorCodes.decode(3))
 
-
 # create()
-b0, b1 = image_to_bin()
+# b0, b1 = image_to_bin()
 # for i in range(20):
 #     insert(
 #         numPlate='MH14DT2661',

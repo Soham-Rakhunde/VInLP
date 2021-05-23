@@ -1,6 +1,5 @@
-import os
+import multiprocessing
 from tkinter import *
-import cv2
 
 from ttkthemes import themed_tk as tkt
 from historyPage import HistoryPage
@@ -70,6 +69,7 @@ class App(tkt.ThemedTk):
 
 
 if __name__ == "__main__":
+    # previousStr.initPrevStr()
     root = App()
     # cwd = os.getcwd()
     # parDir = cwd.replace('tkinterUI', 'Resources\\')
