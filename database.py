@@ -3,7 +3,7 @@ import os
 
 
 def create():
-    db = sqlite3.connect('Resources\\realtest.db')
+    db = sqlite3.connect('realtest.db')
     c = db.cursor()
     c.execute("""CREATE TABLE realtest(
     numPlate text,

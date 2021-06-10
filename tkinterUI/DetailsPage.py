@@ -1,8 +1,6 @@
 from tkinter import *
 from tkinter import ttk
 
-import PIL
-
 from errorCode import errorCodes
 from PIL import ImageTk, Image
 import io

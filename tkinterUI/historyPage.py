@@ -75,7 +75,6 @@ class HistoryPage(Frame):
 
     def dbtable(self):
         # treeview
-        # treeview
         self.table = ttk.Treeview(self, height=30, selectmode='browse')
 
         verscrlbar = ttk.Scrollbar(self, orient="vertical", command=self.table.yview)

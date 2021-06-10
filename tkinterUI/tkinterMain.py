@@ -1,4 +1,3 @@
-import multiprocessing
 from tkinter import *
 
 from ttkthemes import themed_tk as tkt
@@ -19,9 +18,6 @@ class App(tkt.ThemedTk):
         self.side_bar()
         self._frame = None
         self.switch_frame(frame_class=HomePage)
-
-
-
 
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)

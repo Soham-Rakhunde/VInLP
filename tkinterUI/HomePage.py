@@ -26,6 +26,26 @@ class HomePage(Frame):
         self.openVideoButton.grid(row=1, column=0, columnspan=2, sticky=N + W + S + E, ipady=10, ipadx=40, pady=280, padx=240)
         self.updater()
 
+    def updater(self):
+        # clock
+        self.nowTimeVar.set(datetime.now().strftime("Date-%d-%m-%Y Time-%H:%M:%S"))
+        self.after(1000, self.updater)
+
+    def open_vid(self):
+        # ask save location
+        dirname = tkinter.filedialog.askopenfile(mode='r', filetypes=[('Video Files', '*.mp4'),('Image Files', '*.png'),('Image Files', '*.jpg'),('Image Files', '*.jpeg')])
+        if not dirname:
+            return
+
+        vidLabel = Label(self, pady=10)
+        plateLabel = Label(self, padx=10, pady=10, bg=constants.colors['main']['bg'])
+
+        thread = threading.Thread(target=self.imageRefresh, args=(vidLabel, plateLabel, dirname))
+        thread.start()
+
+        vidLabel.grid(row=1, column=0, columnspan=2, sticky=N)
+        plateLabel.grid(row=2, column=0, sticky=N + W + S + E, columnspan=2)
+
     def imageRefresh(self, photoLabel, plateLabel, dirname):
         vidProcessor = VideoProcessor(dirname)
         self.openVideoButton.grid_forget()
@@ -50,23 +70,3 @@ class HomePage(Frame):
 
             time.sleep(1 / 5)  # this is refresh rate
 
-
-    def updater(self):
-        # clock
-        self.nowTimeVar.set(datetime.now().strftime("Date-%d-%m-%Y Time-%H:%M:%S"))
-        self.after(1000, self.updater)
-
-    def open_vid(self):
-        # ask save location
-        dirname = tkinter.filedialog.askopenfile(mode='r', filetypes=[('Video Files', '*.mp4')])
-        if not dirname:
-            return
-
-        vidLabel = Label(self, pady=10)
-        plateLabel = Label(self, padx=10, pady=10, bg=constants.colors['main']['bg'])
-
-        thread = threading.Thread(target=self.imageRefresh, args=(vidLabel, plateLabel, dirname))
-        thread.start()
-
-        vidLabel.grid(row=1, column=0, columnspan=2, sticky=N)
-        plateLabel.grid(row=2, column=0, sticky=N + W + S + E, columnspan=2)

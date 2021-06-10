@@ -1,6 +1,5 @@
 import time
 from datetime import datetime
-
 import cv2
 import pytesseract
 from msedge.selenium_tools import EdgeOptions
@@ -19,10 +18,8 @@ import numpy as np
 class Scraper(Rekognition):
     def __init__(self, dataClass):
         Rekognition.__init__(self, dataClass)
-        # print('prev', previousStr.prevStr)
-
+        self.dataClass = dataClass
         if True:
-            #     previousStr.prevStr != self.dataObj.numPlate:
             self.TESS_PATH = 'D:\Software\Programming\Teserract_OCR\\tesseract.exe'
             self.TESS_CONFIG = "-c tessedit_char_whitelist=0123456789abcdefghijklmnopqrstuvwxyz --psm 8"
             self.DRIVER_PATH = "D:\Software\Programming\Edge Webdriver\msedgedriver.exe"
@@ -60,7 +57,7 @@ class Scraper(Rekognition):
                                 self.saveInDb(regDate.strip(' '), insDate.strip(' '), pucDate.strip(' '))
                                 break
                             except Exception as e:
-                                print(1, e)
+                                # print(1, e)
                                 WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
                                     (By.XPATH, "//*[@id='userMessages']/div/ul/li/span")))
                                 try:
@@ -70,7 +67,7 @@ class Scraper(Rekognition):
                                         print('broke')
                                         break
                                 except Exception as e:
-                                    print(4, e, 'nothibng found')
+                                    print(4, 'nothibng found')
                                 wait = WebDriverWait(self.driver, 10)
                                 print('waiting')
                                 wait.until(EC.element_to_be_clickable((By.NAME, "vahancaptcha:btn_Captchaid")))
@@ -80,7 +77,7 @@ class Scraper(Rekognition):
                                 self.captchaSolve()
                         isStop = True
                     except Exception as e:
-                        print(2, e)
+                        # print(2, e)
                         isStop = False
 
     def login(self):
@@ -138,6 +135,7 @@ class Scraper(Rekognition):
             "#rcDetailsPanel > div:nth-child(6) > div:nth-child(2) > span").text
         pucDate = self.driver.find_element_by_css_selector(
             "#rcDetailsPanel > div:nth-child(6) > div:nth-child(4) > span").text
+        time.sleep(5)
         self.driver.quit()
         return regDate, insDate, pucDate
 
@@ -163,7 +161,7 @@ class Scraper(Rekognition):
         # decode the array into an image
         captchaImg = cv2.imdecode(x, cv2.IMREAD_UNCHANGED)
 
-        while cv2.waitKey(1) & 0xFF == ord('q'):
+        while cv2.waitKey(5000) & 0xFF == ord('q'):
             break
 
         gray = cv2.cvtColor(captchaImg, cv2.COLOR_BGR2GRAY)
@@ -197,5 +195,26 @@ class Scraper(Rekognition):
         for char in self.dataObj.numPlate:
             if char.isalnum():
                 temp += char
-                print(char, temp)
         self.dataObj.numPlate = temp
+
+
+# def sa():
+#     li = ['MH12GF8907', 'MH12DT2660', 'CG04MF2250', 'KA19P8488', 'HR26DK8337', 'GJ10BC1990', 'GJ12CC1000', 'GJ15CL2323',
+#           'GJ15DC2001',
+#           'TN21BZ0768', 'MH12DE1433', 'MH26DQ5551', 'TN22BM0919', 'MH14GN9239', 'MH14DT2661', 'TN01AS9299',
+#           'UP14BN4001', 'MH20DV2366',
+#           'KL58AB3333', 'MH13CD0096', 'MH13CK4400', 'MH01AV8866', 'MP04CC2688', 'DL8CAF5030', 'KL01CC5995',
+#           'MH20EF0365', 'JH10BR2261',
+#           'WB06J7158', 'AP31BK3339', 'TN02AK8055']
+#
+#     # with concurrent.futures.ProcessPoolExecutor() as multiProcessExecutor:
+#     for i in li:
+#         da = DataClass()
+#         da.numPlate = i
+#         print(i)
+#         a = Scraper(da)
+#             # mult/iProcessExecutor.submit(Scraper, da)
+#
+#
+# if __name__ == "__main__":
+#     sa()
